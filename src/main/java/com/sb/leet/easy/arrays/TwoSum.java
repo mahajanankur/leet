@@ -3,6 +3,7 @@
  */
 package com.sb.leet.easy.arrays;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ import java.util.Map;
  *         Example 2: Input: nums = [3,2,4], target = 6 Output: [1,2]
  * 
  *         Example 3: Input: nums = [3,3], target = 6 Output: [0,1]
- *         
+ * 
  *         Note down - Make sure no number is greater than target.
  */
 public class TwoSum {
@@ -36,7 +37,8 @@ public class TwoSum {
 		// int[] nums = { 3, 3 };
 		int[] nums = { -1, -2, -3, -4, -5 };
 		int target = -8;
-		int[] res = firstApproach(nums, target);
+		// int[] res = firstApproach(nums, target);
+		int[] res = twoPointerApproach(nums, target);
 		for (int i = 0; i < res.length; i++) {
 			System.out.println(res[i]);
 		}
@@ -62,6 +64,24 @@ public class TwoSum {
 			if (null != elem && elem != j) {
 				result[0] = j;
 				result[1] = elem;
+				break;
+			}
+		}
+		return result;
+	}
+
+	private static int[] twoPointerApproach(int[] nums, int target) {
+		Arrays.sort(nums);
+		int[] result = new int[2];
+		int i = 0, j = nums.length - 1;
+		while (j > i) {
+			if (nums[i] + nums[j] > target) {
+				j--;
+			} else if (nums[i] + nums[j] < target) {
+				i++;
+			} else {
+				result[0] = i;
+				result[1] = j;
 				break;
 			}
 		}
