@@ -95,8 +95,8 @@ public class MergeTwoSortedLists {
 		// ListNode l2 = null;
 		ListNode l1 = runner.createList(-1, 3, 5, 6, 7, 10);
 		ListNode l2 = runner.createList(-5, 1, 2, 3, 7, 9, 11, 12);
-		// ListNode merged = runner.mergeTwoLists(l1, l2);
-		ListNode merged = runner.mergeByRecursion(l1, l2);
+		ListNode merged = runner.mergeTwoLists(l1, l2);
+		// ListNode merged = runner.mergeByRecursion(l1, l2);
 		while (null != merged) {
 			System.out.println(merged.val);
 			merged = merged.next;
