@@ -4,6 +4,7 @@
 package com.sb.grab;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,6 +14,10 @@ import java.util.List;
  *         https://www.geeksforgeeks.org/must-do-coding-questions-for-companies-like-amazon-microsoft-adobe/
  * 
  *         https://practice.geeksforgeeks.org/problems/longest-palindrome-in-a-string3411/1
+ * 
+ *         Solution is Time - O(n^2) and space - O(n)
+ * 
+ *         DP solution Time - O(n^2) and space - O(n^2)
  */
 public class LongestPalindrome {
 
@@ -20,8 +25,57 @@ public class LongestPalindrome {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String str = "aaabbb";
-		longestPalindromeFirst(str);
+		String str = "aaabbaa";
+		// longestPalindromeFirst(str);
+		longestPalindromeByDP(str);
+
+	}
+
+	private static void longestPalindromeByDP(String str) {
+		// "aaabbb" - if greater than 2 then str(i, j) - if char(i) = char(j) and
+		// str(i+1, j-1) is also a palindrome
+		int[][] grid = new int[str.length()][str.length()];
+		// add all the single true.
+		for (int i = 0; i < grid.length; i++) {
+			grid[i][i] = 1;
+		}
+		// add for all the length 2.
+		for (int i = 0; i < grid.length - 1; i++) {
+			for (int j = i + 1; j <= i + 1; j++) {
+				if (str.charAt(i) == str.charAt(j)) {
+					grid[i][j] = 1;
+				} else {
+					grid[i][j] = 0;
+				}
+
+			}
+		}
+
+		// add for all the length 3.
+		for (int i = 0; i < grid.length - 2; i++) {
+			for (int j = i + 2; j <= i + 2; j++) {
+				if (str.charAt(i) == str.charAt(j)) {
+					grid[i][j] = 1;
+				} else {
+					grid[i][j] = 0;
+				}
+
+			}
+		}
+
+		// add for all the length greater than 3.
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = i + 3; j < grid.length; j++) {
+				if (str.charAt(i) == str.charAt(j) && grid[i + 1][j - 1] == 1) {
+					grid[i][j] = 1;
+				} else {
+					grid[i][j] = 0;
+				}
+			}
+		}
+		for (int i = 0; i < grid.length; i++) {
+			System.out.println(i + " " + Arrays.toString(grid[i]));
+		}
 
 	}
 
