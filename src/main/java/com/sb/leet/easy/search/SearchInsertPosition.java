@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sb.leet.easy.arrays;
+package com.sb.leet.easy.search;
 
 /**
  * @author ankur

@@ -21,13 +21,49 @@ public class ThreeSum {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// int[] nums = { -1, 0, 1, 2, -1, -4 };
+		int[] nums = { -1, 0, 1, 2, -1, -4 };
 		// int[] nums = { 0, 0 };
 		// int[] nums = { 0, 0, 0, 0, 0, 0, 0 };
-		int[] nums = { -1, 0, 1, 0 };
+		// int[] nums = { -1, 0, 1, 0 };
 		// Set<Integer> set = new LinkedHashSet<>();
-		List<List<Integer>> sum = threeSum(nums);
+		// List<List<Integer>> sum = threeSum(nums);
+		List<List<Integer>> sum = threeSumByPointers(nums);
 		System.out.println(sum.toString());
+	}
+
+	private static List<List<Integer>> threeSumByPointers(int[] nums) {
+		List<List<Integer>> res = new ArrayList<>();
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length - 2; i++) {
+			int low = i + 1, high = nums.length - 1;
+			while (high > low) {
+				if (nums[i] + nums[low] + nums[high] > 0) {
+					while (high > low && nums[high] == nums[high - 1]) {
+						high--;
+					}
+					high--;
+				} else if (nums[i] + nums[low] + nums[high] < 0) {
+					while (high > low && nums[low] == nums[low + 1]) {
+						low++;
+					}
+					low++;
+				} else {
+					res.add(Arrays.asList(nums[i], nums[low], nums[high]));
+					// Edge case if last number is same as current iteration.
+					while (high > low && nums[high] == nums[high - 1]) {
+						high--;
+					}
+					while (high > low && nums[low] == nums[low + 1]) {
+						low++;
+					}
+					
+					low++;
+					high--;
+				}
+			}
+
+		}
+		return res;
 	}
 
 	public static List<List<Integer>> threeSum(int[] nums) {
